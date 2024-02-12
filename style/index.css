@@ -1,0 +1,62 @@
+/* 
+rgb(17, 17, 17) negro/gris logo
+#3b1e70 violeta
+ */
+
+/* Body */
+body{
+    background-color: black;
+}
+/* Header */
+header{
+    margin-top: 8rem;
+}
+.border-top {
+    border-top: var(--bs-border-width) var(--bs-border-style) #3b1e70!important;
+}
+.border-start {
+    border-left: var(--bs-border-width) var(--bs-border-style) #3b1e70!important;
+}
+.border-end {
+    border-right: var(--bs-border-width) var(--bs-border-style) #3b1e70!important;
+}
+/* Header / img */
+.inicioBackground{
+    background-color: rgb(17, 17, 17);
+}
+.inicioImg{
+    max-width: 40rem;
+}
+/* Main */
+.border-bottom {
+    border-bottom: var(--bs-border-width) var(--bs-border-style)#3b1e70!important;
+}
+/* Main / Formulario */
+.textoForm{
+    color: white;
+}
+.form-check-input:checked {
+    background-color: #3b1e70;
+    border-color: #3b1e70;
+}
+.inicioSesion{
+    background-color: #3b1e70;
+    color: white;
+    font-size: large;
+    text-decoration: none;
+}
+.inicioSesion:hover{
+    text-decoration: underline;
+}
+.border {
+    border: var(--bs-border-width) var(--bs-border-style) #3b1e70!important;
+}
+/* Footer */
+footer{
+    margin-top: 2rem;
+}
+.imgRedes{
+    margin-top: 1rem;
+    width: 2rem;
+    height: auto;
+}
