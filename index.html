@@ -22,34 +22,27 @@
     <!-- Main -->
     <main class="container pt-5 pb-5 border-end border-start border-bottom rounded-5 rounded-top-0 inicioBackground">
         <!-- Formulario -->
-        <form class="">
+        <form id="registroForm">
+            <!-- Email -->
             <div class="row mb-3 justify-content-center">
-                <label for="inputEmail3" class="col-sm-2 col-form-label textoForm">Email</label>
+                <label for="username" class="col-sm-2 col-form-label textoForm">Email</label>
                 <div class="col-sm-10 col-lg-6">
-                    <input type="email" class="form-control" id="inputEmail3" value=""
-                        autocomplete="username">
+                    <input type="text" class="form-control" id="username" name="username" value="coder@outlook.com" autocomplete="username"
+                        required>
                 </div>
             </div>
+            <!-- Password -->
             <div class="row mb-3 justify-content-center">
-                <label for="inputPassword" class="col-sm-2 col-form-label textoForm">Password</label>
+                <label for="password" class="col-sm-2 col-form-label textoForm">Password</label>
                 <div class="col-sm-10 col-lg-6">
-                    <input type="password" name="password" id="inputPassword" value=""
-                        autocomplete="current-password">
+                    <input type="password" class="form-control" id="password" name="password" value="coderhouse"
+                        autocomplete="current-password" required>
                 </div>
             </div>
+            <!-- Btn Iniciar Sesion -->
             <div class="row mb-3 justify-content-center">
                 <div class="col-sm-10 offset-sm-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck1">
-                        <label class="form-check-label textoForm" for="gridCheck1">
-                            No soy un robot
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3 justify-content-center">
-                <div class="col-sm-10 offset-sm-2">
-                    <a href="page/home.html" class="rounded inicioSesion p-2">Iniciar Sesion</a>
+                    <button type="submit" class="rounded inicioSesion border-0" id="submitBtn">Iniciar Sesion</button>
                 </div>
             </div>
         </form>
@@ -59,25 +52,27 @@
         <!-- Redes Sociales -->
         <div class="d-flex justify-content-around">
             <div class="">
-                <a href="https://twitter.com/" ><img src="img/twitter.jpg" alt="" class="imgRedes"></a>
+                <a href="https://twitter.com/"><img src="img/twitter.jpg" alt="" class="imgRedes"></a>
             </div>
             <div class="">
                 <a href="https://facebook.com/"><img src="img/facebook.jpg" alt="" class="imgRedes"></a>
             </div>
             <div class="">
-                <a href="https://instagram.com/"><img src="img/instagram.jpg" alt="" class="imgRedes" ></a>
+                <a href="https://instagram.com/"><img src="img/instagram.jpg" alt="" class="imgRedes"></a>
             </div>
         </div>
         <!-- Politicas de Privacidad -->
         <div class="col-12 mb-4 text-center mt-5">
             <p>© 2024 Coder Bank Argentina S.A. Todos los derechos Reservados.</p>
         </div>
-        
+
     </footer>
     <!-- Vinculo BootStrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+    <!-- Vinculo JavaScript -->
+    <script src="js/index.js"></script>
 </body>
 
 </html>
