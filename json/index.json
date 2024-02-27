@@ -4,5 +4,11 @@
             "username": "coder@outlook.com",
             "password": "coderhouse"
         }
-    ]
+    ],
+    "cuentas": 
+        {
+            "cuentaPrincipal":0,
+            "cuentaSecundaria":100000000
+        }
+    
 }

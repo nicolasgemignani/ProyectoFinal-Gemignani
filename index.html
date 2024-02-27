@@ -11,21 +11,30 @@
     <link rel="stylesheet" href="style/index.css">
     <title>Document</title>
 </head>
+<!-- 
+    Preguntas
+    Async y await? hay que utilizarlo?
+    Hay que instalar todo por npm?, yo tengo bootstrap, quise poner tawlind pero no me funciono muy bien
+    Yo voy a hacer como un home banking, queria saber sobre tema de las api, que api y para que podria utilizar?
+    Que es el archivo readme.md?, dice que si es necesario hacerlo, lo pongamos en el tp final
+    Evita utilizar herramientas de Minificación de código para esta instancia como también incluir recursos pesados dentro del proyecto. Que significa esto?
+    No debes mostrar productos o servicios de tu simulador generados de forma estática en HTML., Que quiere decir esto?
 
+ -->
 <body class="container">
     <!-- Header -->
-    <header class="container border-top border-start border-end rounded-5 rounded-bottom-0 inicioBackground">
-        <div class="container inicioImg">
-            <img src="img/CoderBank.png" class="container" alt="">
+    <header class="container border-top border-start border-end rounded-5 rounded-bottom-0 indexBackground">
+        <div class="container text-center">
+            <img src="img/CoderBank.png" class="rounded indexImg" alt="">
         </div>
     </header>
     <!-- Main -->
-    <main class="container pt-5 pb-5 border-end border-start border-bottom rounded-5 rounded-top-0 inicioBackground">
+    <main class="container pt-5 pb-5 border-end border-start border-bottom rounded-5 rounded-top-0 indexBackground">
         <!-- Formulario -->
         <form id="registroForm">
             <!-- Email -->
             <div class="row mb-3 justify-content-center">
-                <label for="username" class="col-sm-2 col-form-label textoForm">Email</label>
+                <label for="username" class="col-sm-2 col-form-label textForm">Email</label>
                 <div class="col-sm-10 col-lg-6">
                     <input type="text" class="form-control" id="username" name="username" value="coder@outlook.com" autocomplete="username"
                         required>
@@ -33,7 +42,7 @@
             </div>
             <!-- Password -->
             <div class="row mb-3 justify-content-center">
-                <label for="password" class="col-sm-2 col-form-label textoForm">Password</label>
+                <label for="password" class="col-sm-2 col-form-label textForm">Contraseña</label>
                 <div class="col-sm-10 col-lg-6">
                     <input type="password" class="form-control" id="password" name="password" value="coderhouse"
                         autocomplete="current-password" required>
@@ -42,7 +51,7 @@
             <!-- Btn Iniciar Sesion -->
             <div class="row mb-3 justify-content-center">
                 <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="rounded inicioSesion border-0" id="submitBtn">Iniciar Sesion</button>
+                    <button type="submit" class="rounded border-0 logIn " id="submitBtn">Iniciar Sesion</button>
                 </div>
             </div>
         </form>
@@ -52,13 +61,13 @@
         <!-- Redes Sociales -->
         <div class="d-flex justify-content-around">
             <div class="">
-                <a href="https://twitter.com/"><img src="img/twitter.jpg" alt="" class="imgRedes"></a>
+                <a href="https://twitter.com/"><img src="img/twitter.jpg" alt="" class="imgNetworks"></a>
             </div>
             <div class="">
-                <a href="https://facebook.com/"><img src="img/facebook.jpg" alt="" class="imgRedes"></a>
+                <a href="https://facebook.com/"><img src="img/facebook.jpg" alt="" class="imgNetworks"></a>
             </div>
             <div class="">
-                <a href="https://instagram.com/"><img src="img/instagram.jpg" alt="" class="imgRedes"></a>
+                <a href="https://instagram.com/"><img src="img/instagram.jpg" alt="" class="imgNetworks"></a>
             </div>
         </div>
         <!-- Politicas de Privacidad -->
