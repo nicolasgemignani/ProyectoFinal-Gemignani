@@ -42,7 +42,7 @@
     <main class="container border-end border-start border-bottom rounded-bottom pt-5 pb-5 ps-4 indexBackground">
         <!-- Manejo de la cuenta -->
         <div class="backCuenta rounded pb-3 pt-1 ps-2">
-            <p>Cuenta 042-006784/0</p>
+            <p id="valorCuentaSecundaria">Cuenta 042-006784/0</p>
             <p id="cuenta"></p>
             <p class="d-inline-flex gap-1">
                 <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button"
@@ -50,6 +50,7 @@
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#multiCollapseExample2" aria-expanded="false"
                     aria-controls="multiCollapseExample2">Transferir Dinero</button>
+                <button id="cambiarValor" class="btn btn-primary">Cuenta 032-007483/0</button>
             </p>
             <!-- Ingreso y Transferencia de Dinero -->
             <div class="row ">
@@ -60,6 +61,7 @@
                             Cuenta 032-007483/0
                             <input type="text" id="ingreso" onkeypress="return soloNumeros(event)">
                             <button onclick="ingresarDinero()">Confirmar</button>
+                            <button id="borrarIng">Borrar</button>
                         </div>
                         <div>
                             <p id="mensajeIng"></p>
@@ -73,6 +75,7 @@
                             Cuenta 032-007483/0
                             <input type="text" id="transferir" onkeypress="return soloNumeros(event)">
                             <button onclick="transferirDinero()">Confirmar</button>
+                            <button id="borrarTrans">Borrar</button>
                         </div>
                         <div>
                             <p id="mensajeTransf"></p>
@@ -86,7 +89,8 @@
             <div>
                 <h2>Movimimientos</h2>
                 <div class="backCuenta rounded">
-                    <textarea class="rounded container mxwidth" id="movimientos" cols="65" rows="10" readonly></textarea>
+                    <textarea class="rounded container mxwidth" id="movimientos" cols="65" rows="10"
+                        readonly></textarea>
                     <button class="rounded" id="limpiarMovimientos">Limpiar Movimientos Almacenados</button>
                 </div>
             </div>

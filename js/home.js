@@ -1,7 +1,7 @@
 ///////////////////////////////////Variables && Arrays
 
 let cuentaPrincipal = 0
-let cuentaSecundaria = 100000000
+let cuentaSecundaria = 0
 const movimientos = []
 
 
@@ -14,29 +14,33 @@ const movimientos = []
 
 
 //Cargar cuentas JSON
-function cargarCuentas(){
+function cargarCuentas() {
     fetch('../json/index.json')
-    .then(response => response.json())
-    .then(data => {
-        cuentaPrincipal = data.cuentas.cuentaPrincipal
-        cuentaSecundaria = data.cuentas.cuentaSecundaria
+        .then(response => response.json())
+        .then(data => {
+            const cuentas = data.cuentas
+            cuentaPrincipal = data.cuentas.cuentaPrincipal
+            cuentaSecundaria = data.cuentas.cuentaSecundaria
 
-        const cuentaPrincipalGuardada = localStorage.getItem('cuentaPrincipal')
-        const cuentaSecundariaGuardada = localStorage.getItem('cuentaSecundaria')
+            const cuentaPrincipalGuardada = localStorage.getItem('cuentaPrincipal')
+            const cuentaSecundariaGuardada = localStorage.getItem('cuentaSecundaria')
 
-        if(cuentaPrincipalGuardada !== null && cuentaSecundariaGuardada !== null){
-            cuentaPrincipal = parseFloat(cuentaPrincipalGuardada)
-            cuentaSecundaria = parseFloat(cuentaSecundariaGuardada)
-        }
-        montoCuentaPrincipal()
-    })
-    .catch(error => console.error('Error al cargar las cuentas:', error))
+            if (cuentaPrincipalGuardada !== null && cuentaSecundariaGuardada !== null) {
+                cuentaPrincipal = parseFloat(cuentaPrincipalGuardada)
+                cuentaSecundaria = parseFloat(cuentaSecundariaGuardada)
+            } else {
+                cuentaPrincipal = cuentas.cuentaPrincipal
+                cuentaSecundaria = cuentas.cuentaSecundaria
+            }
+            montoCuentaPrincipal()
+        })
+        .catch(error => console.error('Error al cargar las cuentas:', error))
 }
 
 
 //Guardar cuentas en el LocalStorage
-function guardarCuentas(){
-    localStorage.setItem('cuentaPrincipal', cuentaPrincipal.toLocaleString())
+function guardarCuentas() {
+    localStorage.setItem('cuentaPrincipal', cuentaPrincipal)
     localStorage.setItem('cuentaSecundaria', cuentaSecundaria.toString())
 }
 
@@ -44,9 +48,9 @@ function guardarCuentas(){
 //Muestra el monto de la cuenta principal
 function montoCuentaPrincipal() {
     let montoCuenta = document.getElementById('cuenta')
-    montoCuenta.textContent = '$' + cuentaPrincipal
+    montoCuenta.textContent = '$' + cuentaPrincipal.toFixed(2)
 }
-montoCuentaPrincipal()
+
 
 
 
@@ -55,25 +59,26 @@ function ingresarDinero() {
     let ingresoDeDineroTexto = document.getElementById('ingreso').value
     let ingresoDeDineroNumerico = parseFloat(ingresoDeDineroTexto.replace(/[^\d.]/g, ''))
 
-    if (cuentaSecundaria <= 0) {
-        document.getElementById('mensajeIng').innerText = 'No se puede realizar el ingreso. Saldo insuficuente en la cuenta.'
+    if (isNaN(ingresoDeDineroNumerico) || ingresoDeDineroNumerico <= 0) {
+        document.getElementById('mensajeIng').innerText = 'Por favor, ingrese una cantidad valida'
         return
     }
 
-    if (!isNaN(ingresoDeDineroNumerico)) {
-        cuentaPrincipal += ingresoDeDineroNumerico
-        cuentaSecundaria -= ingresoDeDineroNumerico
-        document.getElementById('mensajeIng').innerText = "Se han ingresado $" + ingresoDeDineroNumerico.toLocaleString() + " en la cuenta 042-006784/0"
-        let resultado = cuentaPrincipal
-        let accion = ingresoDeDineroTexto
-        movimientos.push({accion,resultado})
-        montoCuentaPrincipal()
-        almacenaEnLocalStorage()
-        mostrandoMovimientos()
-        guardarCuentas()
-    } else {
-        document.getElementById('mensajeIng').innerText = "Por favor, ingrese una cantidad valida."
+    if (cuentaSecundaria <= 0 || cuentaSecundaria < ingresoDeDineroNumerico) {
+        document.getElementById('mensajeIng').innerText = 'No se puede realizar el ingreso.Saldo insuficiente en la cuenta'
+        return
     }
+    cuentaPrincipal += ingresoDeDineroNumerico
+    cuentaSecundaria -= ingresoDeDineroNumerico
+    document.getElementById('mensajeIng').innerText = "Se han ingresado $" + ingresoDeDineroNumerico.toLocaleString() + " en la cuenta 042-006784/0"
+    let resultado = ingresoDeDineroNumerico
+    let accion = 'Ingreso realizado a la cuenta 042-006784/0'
+    movimientos.push({ accion, resultado })
+    montoCuentaPrincipal()
+    almacenaEnLocalStorage()
+    mostrandoMovimientos()
+    guardarCuentas()
+    actualizarNumeroCuenta()
 }
 
 
@@ -82,26 +87,29 @@ function transferirDinero() {
     let transferirDineroTexto = document.getElementById('transferir').value
     let transferirDineroNumerico = parseFloat(transferirDineroTexto.replace(/[^\d.]/g, ''))
 
-    if (cuentaPrincipal <= 0) {
-        document.getElementById('mensajeTransf').innerText = 'No se puede realizar la transferencia. Saldo insuficiente en la cuenta 042-006784/0'
+    if (isNaN(transferirDineroNumerico) || transferirDineroNumerico <= 0) {
+        document.getElementById('mensajeTransf').innerText = 'Por favor, ingrese una cantidad valida'
         return
     }
 
-    if (!isNaN(transferirDineroNumerico)) {
-        cuentaPrincipal -= transferirDineroNumerico
-        cuentaSecundaria += transferirDineroNumerico
-        document.getElementById('mensajeTransf').innerText = 'Se han transferido $' + transferirDineroNumerico.toLocaleString() + ' en la cuenta 032-007483/0'
-        let resultado = cuentaPrincipal
-        let accion = 'Transferencia realizada'
-        movimientos.push({accion,resultado})
-        montoCuentaPrincipal()
-        almacenaEnLocalStorage()
-        mostrandoMovimientos()
-        guardarCuentas()
-    } else {
-        document.getElementById('mensajeTransf').innerText = 'Por favor, ingrese una cantidad valida'
+    if (cuentaPrincipal < transferirDineroNumerico) {
+        document.getElementById('mensajeTransf').innerText = 'No se puede realizar la transferencia. Saldo insuficiente en la cuenta 042-006784/0'
+        return
     }
+    cuentaPrincipal -= transferirDineroNumerico
+    cuentaSecundaria += transferirDineroNumerico
+    document.getElementById('mensajeTransf').innerText = 'Se han transferido $' + transferirDineroNumerico.toLocaleString() + ' en la cuenta 032-007483/0'
+    let resultado = transferirDineroNumerico
+    let accion = 'Transferencia realizada a la cuenta 032-007483/0'
+    movimientos.push({ accion, resultado })
+    montoCuentaPrincipal()
+    almacenaEnLocalStorage()
+    mostrandoMovimientos()
+    guardarCuentas()
+    actualizarNumeroCuenta()
 }
+
+
 
 
 //Tanto como en los cuadros de ingresa y transferir dinero, crea la regla de solo numeros
@@ -118,7 +126,7 @@ function soloNumeros(event) {
 
 
 //Limpiar Movimientos Almacenados
-function limpiarMovimientos(){
+function limpiarMovimientos() {
     movimientos.length = 0
     almacenaEnLocalStorage()
     mostrandoMovimientos()
@@ -129,7 +137,7 @@ function limpiarMovimientos(){
 
 
 //Pasaje del array 'movimientos' a JSON y Almacenado en el localStorage
-function almacenaEnLocalStorage(){
+function almacenaEnLocalStorage() {
     //El array 'movimientos' se convierte en JSON.
     const movimientosJSON = JSON.stringify(movimientos)
     //Almacena en el localStorage, clave 'movimientosGuardados' y valor 'movimientosJSON'
@@ -138,22 +146,22 @@ function almacenaEnLocalStorage(){
 
 
 //Mostrar localStorage como movimientos
-function mostrandoMovimientos(){
+function mostrandoMovimientos() {
     const textArea = document.getElementById('movimientos')
     const movimientosRecuperadosEnJson = localStorage.getItem('movimientosGuardados')
-    if(movimientosRecuperadosEnJson !== null){
-        try{
+    if (movimientosRecuperadosEnJson !== null) {
+        try {
             const movimientosRecuperados = JSON.parse(movimientosRecuperadosEnJson)
-            if(Array.isArray(movimientosRecuperados) && movimientosRecuperados.length > 0){
-                const contenidoMovimientosRecuperados = movimientosRecuperados.map(item => `${item.movimiento} = ${item.resultado}`).join('\n')
+            if (Array.isArray(movimientosRecuperados) && movimientosRecuperados.length > 0) {
+                const contenidoMovimientosRecuperados = movimientosRecuperados.map(item => `${item.accion} = $${item.resultado}`).join('\n')
                 textArea.value = contenidoMovimientosRecuperados
-            } else{
+            } else {
                 textArea.value = 'Los movimientos almacenados son nulos.'
             }
         } catch (error) {
             textArea.value = 'Error al parsear los movimientos almacenados.'
         }
-    }else {
+    } else {
         textArea.value = 'No hay movimientos almacenados'
     }
 }
@@ -161,13 +169,13 @@ function mostrandoMovimientos(){
 montoCuentaPrincipal()
 
 //Pusheo al textArea los movimientos
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
     const movimientosRecuperadosEnJson = localStorage.getItem('movimientosGuardados')
-    if(movimientosRecuperadosEnJson){
-        try{
+    if (movimientosRecuperadosEnJson) {
+        try {
             const movimientosRecuperados = JSON.parse(movimientosRecuperadosEnJson)
             movimientos.push(...movimientosRecuperados)
-        }catch (error){
+        } catch (error) {
             console.error('Error al parsear el historial recuperado', error)
         }
     }
@@ -176,9 +184,9 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
     const btnLimpiar = document.getElementById('limpiarMovimientos')
-    if(btnLimpiar){
+    if (btnLimpiar) {
         btnLimpiar.addEventListener('click', limpiarMovimientos)
     }
 })
@@ -187,8 +195,75 @@ document.addEventListener('DOMContentLoaded', almacenaEnLocalStorage)
 
 document.addEventListener('DOMContentLoaded', mostrandoMovimientos)
 
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded', function () {
     cargarCuentas()
     almacenaEnLocalStorage()
     mostrandoMovimientos()
 })
+
+//No mas de 2 numeros despues del .
+/* const ingresoInput = document.getElementById('ingreso')
+ingresoInput.addEventListener('input', function (event) {
+    let valor = event.target.value
+    if (/\.\d{3,}/.test(valor)) {
+        event.target.value = valor.slice(0, -1)
+    }
+})
+const transferenciaInput = document.getElementById('transferir')
+transferenciaInput.addEventListener('input', function (event) {
+    let valor = event.target.value
+    if (/\.\d{3,}/.test(valor)) {
+        event.target.value = valor.slice(0, -1)
+    }
+}) */
+
+function limitarEntrada(event){
+    let valor = event.target.value
+    if(/\.\d{3,}/.test(valor)) {
+        event.target.value = valor.slice(0, -1)
+    }
+}
+
+const ingresoInput = document.getElementById('ingreso')
+const transferenciaInput = document.getElementById('transferir')
+
+
+
+//Cambiar y muestra el valor de ambas cuentas en el html
+const botonCambiarValor = document.getElementById('cambiarValor')
+const numCuenta = document.getElementById('valorCuentaSecundaria')
+const valorCuenta = document.getElementById('cuenta')
+let numCuentaPrincipal = 'Cuenta 042-006784/0'
+let valorInicialCuenta = cuentaPrincipal
+function actualizarNumeroCuenta() {
+    if (numCuenta.textContent === numCuentaPrincipal) {
+        numCuenta.textContent = 'Cuenta 042-006784/0'
+    } else {
+        numCuenta.textContent = numCuentaPrincipal
+    }
+}
+function cambiarValor() {
+    if (numCuenta.textContent === numCuentaPrincipal && valorCuenta.textContent === '$' + cuentaPrincipal.toFixed(2)) {
+        numCuenta.textContent = 'Cuenta 032-007483/0'
+        valorCuenta.textContent = '$' + cuentaSecundaria.toFixed(2)
+    } else {
+        numCuenta.textContent = numCuentaPrincipal
+        valorCuenta.textContent = '$' + cuentaPrincipal.toFixed(2)
+    }
+}
+
+
+
+///////////////////////////////////////////addEventListener
+
+
+
+ingresoInput.addEventListener('input', limitarEntrada)
+transferenciaInput.addEventListener('input', limitarEntrada)
+document.getElementById('borrarTrans').addEventListener('click', function(){
+    document.getElementById('transferir').value = ''
+})
+document.getElementById('borrarIng').addEventListener('click', function(){
+    document.getElementById('ingreso').value = ''
+})
+botonCambiarValor.addEventListener('click', cambiarValor)
