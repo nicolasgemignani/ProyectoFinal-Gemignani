@@ -265,7 +265,11 @@ function pagarMaster() {
     }
 
     if (isNaN(monto)) {
-        console.log('Por favor, ingrese un monto válido')
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Ingresa un numero valido",
+        });
         return
     }
 
@@ -373,7 +377,7 @@ function pagarVisa() {
 
 
 
-///////////////////////////////////////////Pagar Impuestos
+///////////////////////////////////////////Api Dolar Oficial
 
 
 //Llama la api
