@@ -33,7 +33,7 @@ header{
 .border-bottom {
     border-bottom: var(--bs-border-width) var(--bs-border-style)#3b1e70!important;
 }
-/* Main / Formulario */
+/* index / Main / Formulario */
 .textForm{
     color: white;
 }
@@ -97,11 +97,24 @@ footer{
     box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
 }
 h2{
-    color: white;
+    color: rgb(0, 0, 0);
+    font-size: xx-large;
 }
 .mxwidth{
     max-width: 43rem;
 }
 h4{
-    color: white;
+    color: rgb(0, 0, 0);
+}
+
+.pagar{
+    height: 30px;
+    --bs-btn-padding-y: 0;
+}
+
+.background{
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
+    box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
 }

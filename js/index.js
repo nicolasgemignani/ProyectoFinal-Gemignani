@@ -17,7 +17,6 @@ fetch('../json/index.json')
                 localStorage.setItem('username', username)
                 localStorage.setItem('password', password)
                 document.getElementById('registroForm').reset()
-                Swal.fire("SweetAlert2 is working!");
                 window.location.href = 'page/home.html'
             } else {
                 Swal.fire({

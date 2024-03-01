@@ -281,7 +281,6 @@ function pagarMaster() {
     mostrandoMovimientos()
     guardarCuentas()
     actualizarNumeroCuenta()
-    console.log(`Se ha realizado un pago de $${monto.toLocaleString('es-Ar', { minimumFractionDigits: 2 })} desde la cuenta principal`)
 
     if (monto === 50000) {
         contadorPagosMaster++;
@@ -332,7 +331,11 @@ function pagarVisa() {
     }
 
     if (isNaN(monto)) {
-        console.log('Por favor, ingrese un monto válido')
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Ingresa un numero valido",
+        });
         return;
     }
 
@@ -367,6 +370,59 @@ function pagarVisa() {
         localStorage.setItem('estadoBotonVisa', 'pagado')
     }
 }
+
+
+
+///////////////////////////////////////////Pagar Impuestos
+
+
+//Llama la api
+async function obtenerDolarOficial() {
+    try {
+        const response = await fetch("https://dolarapi.com/v1/dolares/oficial")
+        const data = await response.json()
+        
+        // Acceder a las propiedades necesarias del objeto de datos
+        const compra = data.compra
+        const venta = data.venta
+        const fechaActualizacion = data.fechaActualizacion
+
+        // Mostrar la información en el HTML
+        mostrarDolarOficial(compra, venta, fechaActualizacion)
+    } catch (error) {
+        console.error('Error al obtener el valor del dólar oficial:', error)
+    }
+}
+
+//Muestra la api en el hmtl
+function mostrarDolarOficial(compra, venta, fechaActualizacion) {
+    // Crear un objeto Date a partir de la fecha de actualización
+    const fecha = new Date(fechaActualizacion)
+
+    // Obtener los componentes de la fecha y hora
+    const dia = fecha.getDate()
+    const mes = fecha.getMonth() + 1 // Se suma 1 porque los meses comienzan en 0
+    const anio = fecha.getFullYear()
+    const hora = fecha.getHours()
+    const minutos = fecha.getMinutes()
+
+    // Formatear la fecha y hora para que sean más legibles
+    const fechaFormateada = `${dia}/${mes}/${anio}`
+    const horaFormateada = `${hora}:${minutos}`
+
+    // Mostrar la información en el HTML
+    const valorDolarElemento = document.getElementById('valorDolar')
+    valorDolarElemento.innerHTML = `
+        <h4>Valor del dólar oficial</h4>
+        <ul>
+            <li>Compra: ${compra}</li>
+            <li>Venta: ${venta}</li>
+            <li>Fecha de actualización: ${fechaFormateada} - ${horaFormateada}</li>
+        </ul>
+    `
+}
+
+obtenerDolarOficial()
 
 
 
@@ -487,7 +543,7 @@ function pagarMetroGas() {
     }
 
     // Restar el monto de Aysa del valor de la cuenta principal.
-    cuentaPrincipal -= monto;
+    cuentaPrincipal -= monto
 
     const accion = `Pago del servicio Metro Gas por`
     movimientos.push({ accion, resultado: monto })
@@ -635,4 +691,3 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //Evento al boton para cambiar entre cuentas.
 botonCambiarValor.addEventListener('click', cambiarValor)
-

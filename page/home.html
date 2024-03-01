@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="../style/index.css">
     <!-- Sweet Alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!--  -->
+    <!-- Toastyfy -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <title>Document</title>
+    <title>Cuenta</title>
 </head>
 
 <body>
@@ -27,14 +27,14 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="../img/CoderBankNav.png" alt="" class="imgNav"></a>
+                <a class="navbar-brand" href="#"><img src="../img/CoderBankNav.png" alt="logo-pequeno-coder-bank" class="imgNav"></a>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Tarjetas</a>
+                            <a class="nav-link active" aria-current="page" href="#tarjetas">Tarjetas</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Impuestos</a>
+                            <a class="nav-link active" aria-current="page" href="#impuestos">Impuestos</a>
                         </li>
                     </ul>
                 </div>
@@ -44,7 +44,7 @@
     <!-- Main -->
     <main class="container border-end border-start border-bottom rounded-bottom pt-5 pb-5 ps-4 indexBackground">
         <!-- Manejo de la cuenta -->
-        <div class="backCuenta rounded pb-3 pt-1 ps-2">
+        <div class="backCuenta rounded py-3 ps-2">
             <p id="valorCuentaSecundaria">Cuenta 042-006784/0</p>
             <p id="cuenta"></p>
             <p class="d-inline-flex gap-1">
@@ -53,7 +53,7 @@
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#multiCollapseExample2" aria-expanded="false"
                     aria-controls="multiCollapseExample2">Transferir Dinero</button>
-                <button id="cambiarValor" class="btn btn-primary">Cuenta 032-007483/0</button>
+                <button id="cambiarValor" class="btn btn-primary me-2">Cuenta 032-007483/0</button>
             </p>
             <!-- Ingreso y Transferencia de Dinero -->
             <div class="row ">
@@ -88,20 +88,20 @@
             </div>
         </div>
         <!-- Movimientos -->
-        <div class="pt-5">
+        <div class="pt-3">
             <div>
-                <h2>Movimimientos</h2>
-                <div class="backCuenta rounded">
+                <div class="backCuenta rounded px-1 pb-1">
+                    <h2 class="ps-3 pt-1">Movimimientos</h2>
                     <textarea class="rounded container mxwidth" id="movimientos" cols="65" rows="10"
                         readonly></textarea>
-                    <button class="rounded" id="limpiarMovimientos">Limpiar Movimientos Almacenados</button>
+                    <button class="rounded btn btn-primary" id="limpiarMovimientos">Limpiar Movimientos Almacenados</button>
                 </div>
             </div>
         </div>
         <!-- Manejo de Pagos de Tarjetas -->
-        <div class="pt-3 pb-3">
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
+        <div class="pt-3 pb-3 mxwidth">
+            <div class="accordion backCuenta rounded" id="accordionExample">
+                <div class="accordion-item" id="tarjetas">
                     <h3 class="ps-3 pt-1">Tarjetas de Credito</h3>
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -111,8 +111,8 @@
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                            <div class="dropdown ps-3">
+                                <button class="btn btn-primary dropdown-toggle" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Tipo de pago
                                 </button>
@@ -127,7 +127,7 @@
                                 <span id="pesos">$</span>
                                 <input type="text" class="rounded" id="uniqueId1" name="uniqueName1" autocomplete="off"
                                     readonly>
-                                <button class="btn btn-primary" id="btnMaster" onclick="pagarMaster()">Pagar</button>
+                                <button class="btn btn-primary pagar mb-1" id="btnMaster" onclick="pagarMaster()">Pagar</button>
                             </div>
                         </div>
                     </div>
@@ -140,13 +140,13 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                <div class="dropdown ps-3">
+                                    <button class="btn btn-primary dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         Tipo de pago
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" onclick="setInputValueVisa(100000)">Pago Minimo</a>
+                                        <li><a class="dropdown-item" onclick="setInputValueVisa(100000)">Pago Mínimo</a>
                                         </li>
                                         <li><a class="dropdown-item" onclick="setInputValueVisa(600000)">Pago Total</a>
                                         </li>
@@ -156,7 +156,7 @@
                                     <span id="pesos2">$</span>
                                     <input type="text" class="rounded" id="uniqueId2" name="uniqueName2"
                                         autocomplete="off" readonly>
-                                    <button class="btn btn-primary" id="btnVisa" onclick="pagarVisa()">Pagar</button>
+                                    <button class="btn btn-primary pagar mb-1" id="btnVisa" onclick="pagarVisa()">Pagar</button>
                                 </div>
                             </div>
                         </div>
@@ -164,28 +164,32 @@
                 </div>
             </div>
         </div>
+        <!-- Dolar Hoy -->
+        <div class="backCuenta rounded py-2 ps-3 mb-3">
+            <p id="valorDolar"></p>
+        </div>
         <!--Pago de impuestos -->
-        <div>
-            <div class="py-3">
+        <div class="background rounded pb-3">
+            <div class="py-3 ps-3">
                 <h4>Tus impuestos adheridos</h4>
             </div>
             <!-- Manejo de Pagos de Impuestos -->
-            <div class="row justify-content-around">
-                <div class="card col-4" style="width: 18rem;">
+            <div class="row justify-content-around" id="impuestos">
+                <div class="card col-4 backCuenta rounded mb-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Aysa</h5>
                         <p class="card-text" id="aysaMonto">$60.000,00</p>
                         <button class="btn btn-primary" id="btnAysa" onclick="pagarAysa()">Pagar</button>
                     </div>
                 </div>
-                <div class="card col-4" style="width: 18rem;">
+                <div class="card col-4 backCuenta rounded mb-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Edenor</h5>
                         <p class="card-text" id="edenorMonto">$300.000,00</p>
                         <button class="btn btn-primary" id="btnEdenor" onclick="pagarEdenor()">Pagar</button>
                     </div>
                 </div>
-                <div class="card col-4" style="width: 18rem;">
+                <div class="card col-4 backCuenta rounded mb-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Metro Gas</h5>
                         <p class="card-text" id="metroGasMonto">$70.000,00</p>
@@ -200,13 +204,13 @@
         <!-- Redes Sociales -->
         <div class="d-flex justify-content-around">
             <div class="">
-                <a href="https://twitter.com/"><img src="../img/twitter.jpg" alt="" class="imgNetworks"></a>
+                <a href="https://twitter.com/"><img src="../img/twitter.jpg" alt="icono-twitter" class="imgNetworks"></a>
             </div>
             <div class="">
-                <a href="https://facebook.com/"><img src="../img/facebook.jpg" alt="" class="imgNetworks"></a>
+                <a href="https://facebook.com/"><img src="../img/facebook.jpg" alt="icono-facebook" class="imgNetworks"></a>
             </div>
             <div class="">
-                <a href="https://instagram.com/"><img src="../img/instagram.jpg" alt="" class="imgNetworks"></a>
+                <a href="https://instagram.com/"><img src="../img/instagram.jpg" alt="icono-instagram" class="imgNetworks"></a>
             </div>
         </div>
         <!-- Politicas de Privacidad -->
@@ -220,7 +224,7 @@
         crossorigin="anonymous"></script>
     <!-- Vinculo JavaScript -->
     <script src="../js/home.js"></script>
-    <!--  -->
+    <!-- Toastyfy -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 
