@@ -68,10 +68,12 @@ function ingresarDinero() {
 
     cuentaPrincipal += ingresoDeDineroTexto
     cuentaSecundaria -= ingresoDeDineroTexto
-    document.getElementById('mensajeIng').innerText = `Se han ingresado $${ingresoDeDineroTexto.toLocaleString()} en la cuenta 042-006784/0`
 
-    const accion = 'Ingreso realizado a la cuenta 042-006784/0'
-    movimientos.push({ accion, resultado: ingresoDeDineroTexto })
+    const ingresoRedondeado = ingresoDeDineroTexto.toFixed(2)
+
+    document.getElementById('mensajeIng').innerText = `Se han ingresado $${ingresoRedondeado} en la cuenta 042-006784/0`
+
+    movimientos.push({ accion: 'Ingreso realizado a la cuenta 042-006784/0', resultado: ingresoDeDineroTexto })
 
     montoCuentaPrincipal()
     almacenaEnLocalStorage()
@@ -167,6 +169,13 @@ function formatearNumero(numero) {
 //Genera el contenido de los movimientos a mostrar en el TextArea.
 function generarContenidoEnMovimientos(movimientos) {
     if (movimientos.length > 0) {
+        Toastify({
+
+            text: "Nuevo Movimiento Guardado",
+
+            duration: 3000
+
+        }).showToast();
         return movimientos.map(item => `${item.accion} = $${formatearNumero(item.resultado)}`).join('\n')
     } else {
         return 'Los movimientos almacenados son nulos.'
@@ -246,6 +255,11 @@ function pagarMaster() {
     let monto = parseFloat(document.getElementById('uniqueId1').value.replace('.', '').replace(',', '.'))
 
     if (cuentaPrincipal < monto) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Revisa tu saldo en la cuenta",
+        });
         document.getElementById('btnMaster').innerText = 'Saldo Insuficiente'
         return
     }
@@ -258,7 +272,7 @@ function pagarMaster() {
     cuentaPrincipal -= monto;
 
     // Agregar el pago a los movimientos.
-    const accion = `Pago realizado desde la cuenta principal`
+    const accion = `Pago realizado Tarjeta Master`
     movimientos.push({ accion, resultado: monto })
 
     // Almacenar en el local storage.
@@ -308,6 +322,11 @@ function pagarVisa() {
     let monto = parseFloat(document.getElementById('uniqueId2').value.replace('.', '').replace(',', '.'))
 
     if (cuentaPrincipal < monto) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Revisa tu saldo en la cuenta",
+        });
         document.getElementById('btnVisa').innerText = 'Saldo Insuficiente'
         return;
     }
@@ -320,7 +339,7 @@ function pagarVisa() {
     cuentaPrincipal -= monto;
 
     // Agregar el pago a los movimientos.
-    const accion = `Pago realizado desde la cuenta principal`
+    const accion = `Pago realizado Tarjeta Visa`
     movimientos.push({ accion, resultado: monto })
 
     // Almacenar en el local storage.
@@ -329,8 +348,7 @@ function pagarVisa() {
     mostrandoMovimientos()
     guardarCuentas()
     actualizarNumeroCuenta()
-    console.log(`Se ha realizado un pago de $${monto.toLocaleString('es-Ar', { minimumFractionDigits: 2 })} desde la cuenta principal`)
-
+    
     if (monto === 100000) {
         contadorPagosVisa++
         if (contadorPagosVisa === 6) {
@@ -369,8 +387,12 @@ function pagarAysa() {
 
     // Verificar si el monto es mayor que el saldo disponible en la cuenta principal.
     if (cuentaPrincipal < monto) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Revisa tu saldo en la cuenta",
+        });
         const botonPagar = montoElement.nextElementSibling; // El siguiente elemento es el botón.
-        botonPagar.disabled = true
         botonPagar.innerText = 'Saldo Insuficiente'
         return; // Salir de la función si el saldo es insuficiente.
     }
@@ -407,11 +429,16 @@ function pagarEdenor() {
     // Convertir la cadena a un número flotante.
     const monto = parseFloat(montoTexto)
 
-     // Verificar si el monto es mayor que el saldo disponible en la cuenta principal.
-     if (cuentaPrincipal < monto) {
+    // Verificar si el monto es mayor que el saldo disponible en la cuenta principal.
+    if (cuentaPrincipal < monto) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Revisa tu saldo en la cuenta",
+        });
         const botonPagar = montoElement.nextElementSibling; // El siguiente elemento es el botón.
-        botonPagar.disabled = true
         botonPagar.innerText = 'Saldo Insuficiente'
+
         return; // Salir de la función si el saldo es insuficiente.
     }
 
@@ -447,10 +474,14 @@ function pagarMetroGas() {
     // Convertir la cadena a un número flotante.
     const monto = parseFloat(montoTexto)
 
-     // Verificar si el monto es mayor que el saldo disponible en la cuenta principal.
-     if (cuentaPrincipal < monto) {
-        const botonPagar = montoElement.nextElementSibling; // El siguiente elemento es el botón.
-        botonPagar.disabled = true;
+    // Verificar si el monto es mayor que el saldo disponible en la cuenta principal.
+    if (cuentaPrincipal < monto) {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Revisa tu saldo en la cuenta",
+        });
+        const botonPagar = montoElement.nextElementSibling; // El siguiente elemento es el botón. 
         botonPagar.innerText = 'Saldo Insuficiente'
         return; // Salir de la función si el saldo es insuficiente.
     }
