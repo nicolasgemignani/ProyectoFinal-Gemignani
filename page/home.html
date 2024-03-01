@@ -99,97 +99,98 @@
         <div class="pt-3 pb-3">
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
-                    <h3 class="ps-3 pt-1">Tus tarjetas</h3>
+                    <h3 class="ps-3 pt-1">Tarjetas de Credito</h3>
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Visa Deb Terminada en 7632
+                            Master **** **** **** 7632
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until
-                            the
-                            collapse plugin adds the appropriate classes that we use to style each element. These
-                            classes control the overall appearance, as well as the showing and hiding via CSS
-                            transitions. You can modify any of this with custom CSS or overriding our default
-                            variables.
-                            It's also worth noting that just about any HTML can go within the
-                            <code>.accordion-body</code>, though the transition does limit overflow.
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tipo de pago
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" onclick="setInputValueMaster(50000)">Pago Minimo</a>
+                                    </li>
+                                    <li><a class="dropdown-item" onclick="setInputValueMaster(300000)">Pago Total</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mt-1">
+                                <span id="pesos">$</span>
+                                <input type="text" class="rounded" id="uniqueId1" name="uniqueName1" autocomplete="off"
+                                    readonly>
+                                <button class="btn btn-primary" id="btnMaster" onclick="pagarMaster()">Pagar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Visa Cred Terminada en 5748
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                            until
-                            the collapse plugin adds the appropriate classes that we use to style each element.
-                            These
-                            classes control the overall appearance, as well as the showing and hiding via CSS
-                            transitions. You can modify any of this with custom CSS or overriding our default
-                            variables.
-                            It's also worth noting that just about any HTML can go within the
-                            <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Master Cred Terminada en 9855
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                            the
-                            collapse plugin adds the appropriate classes that we use to style each element. These
-                            classes control the overall appearance, as well as the showing and hiding via CSS
-                            transitions. You can modify any of this with custom CSS or overriding our default
-                            variables.
-                            It's also worth noting that just about any HTML can go within the
-                            <code>.accordion-body</code>, though the transition does limit overflow.
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Visa **** **** **** 5748
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Tipo de pago
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" onclick="setInputValueVisa(100000)">Pago Minimo</a>
+                                        </li>
+                                        <li><a class="dropdown-item" onclick="setInputValueVisa(600000)">Pago Total</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="mt-1">
+                                    <span id="pesos2">$</span>
+                                    <input type="text" class="rounded" id="uniqueId2" name="uniqueName2"
+                                        autocomplete="off" readonly>
+                                    <button class="btn btn-primary" id="btnVisa" onclick="pagarVisa()">Pagar</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="py-3">
-            <h4>Tus impuestos adheridos</h4>
+        <!--Pago de impuestos -->
+        <div>
+            <div class="py-3">
+                <h4>Tus impuestos adheridos</h4>
+            </div>
+            <!-- Manejo de Pagos de Impuestos -->
+            <div class="row justify-content-around">
+                <div class="card col-4" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Aysa</h5>
+                        <p class="card-text" id="aysaMonto">$60.000,00</p>
+                        <button class="btn btn-primary" id="btnAysa" onclick="pagarAysa()">Pagar</button>
+                    </div>
+                </div>
+                <div class="card col-4" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Edenor</h5>
+                        <p class="card-text" id="edenorMonto">$300.000,00</p>
+                        <button class="btn btn-primary" id="btnEdenor" onclick="pagarEdenor()">Pagar</button>
+                    </div>
+                </div>
+                <div class="card col-4" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Metro Gas</h5>
+                        <p class="card-text" id="metroGasMonto">$70.000,00</p>
+                        <button class="btn btn-primary" id="btnMetroGas" onclick="pagarMetroGas()">Pagar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Manejo de Pagos de Impuestos -->
-        <div class="row justify-content-around">
-            <div class="card col-4" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Aysa</h5>
-                    <p class="card-text">$10.000</p>
-                    <a href="#" class="btn btn-primary">Pagar</a>
-                </div>
-            </div>
-            <div class="card col-4" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Edenor</h5>
-                    <p class="card-text">$30.000</p>
-                    <a href="#" class="btn btn-primary">Pagar</a>
-                </div>
-            </div>
-            <div class="card col-4" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Metro Gas</h5>
-                    <p class="card-text">$15.000</p>
-                    <a href="#" class="btn btn-primary">Pagar</a>
-                </div>
-            </div>
-        </div>
-
     </main>
     <!-- Footer -->
     <footer class="container">
