@@ -17,7 +17,7 @@ fetch('./json/index.json')
                 localStorage.setItem('username', username)
                 localStorage.setItem('password', password)
                 document.getElementById('registroForm').reset()
-                window.location.href = './page/home.html'
+                window.location.href = '/page/home.html'
             } else {
                 Swal.fire({
                     icon: "error",
